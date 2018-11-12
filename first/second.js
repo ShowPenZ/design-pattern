@@ -73,3 +73,44 @@ var Book = function(id, name, price) {
 	this.setName(name);
 	this.setPrice(price);
 };
+
+//类静态公有属性(对象不能访问)
+Book.isChinese = true;
+//类静态公有方法(对象不能访问)
+Book.resetTime = function() {
+	console.log('new time');
+};
+Book.prototype = {
+	//公有属性
+	isJSBook: false,
+	//公有方法
+	display: function() {}
+};
+
+//通过new关键字创建的对象实质是对新对象this的不断赋值,并将prototype指向类
+//的prototype所指向的对象,而类的构造函数外面通过点语法定义的属性方法是不会添加
+//到新创建的对象上去的。因此要想在新创建的对象中使用isChinese 就得通过Book类
+//使用而不能通过this,如Book.isChinese,而类的原型prototype上定义的属性在新对象里
+//就可以直接使用，这是因为新对象的prototype和类的prototype指向的时同一个对象
+
+//=======================================================//
+
+/**
+ * 图书安全类
+ * @param {*} title 
+ * @param {*} tie 
+ * @param {*} type 
+ */
+var Book = function(title, tie, type) {
+	//判断执行过程中this是否是当前这个对象(如果是说明使用new创建的)
+	if (this instanceof Book) {
+		this.title = title;
+		this.time = time;
+		this.type = type;
+		//否则重新创建这个对象
+	} else {
+		return new Book(title, time, type);
+	}
+};
+
+var book = Book('JavaScript', '2014', 'js');
