@@ -55,4 +55,18 @@ var fadeImg = new FadeLoopImg(['01.jpg', '01.jpg', '01.jpg', '04.jpg'], 'slide',
 
 //测试用例
 console.log(fadeImg.container); //slide
-fadeImg.changeImage // FadeLoopImg changeImage function
+fadeImg.changeImage; // FadeLoopImg changeImage function
+
+//原型对象是一个共享的对象,那么不论是父类的实例对象或者是子类的继承,都是对它的一个指向引用,
+//所以原型对象才会被共享。既然被共享，那么对原型对象的拓展,不论是子类或者父类的实例对象都会继承下来
+
+LoopImages.prototype.getImageLength = function() {
+	return this.imagesArray.length;
+};
+
+FadeLoopImg.prototype.getContainer = function() {
+	return this.container;
+};
+
+console.log(fadeImg.getImageLength()); //4
+console.log(fadeImg.getContainer()); //slide
